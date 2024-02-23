@@ -56,7 +56,8 @@ export const CartScreen = () => {
                                         <Form.Control
                                             as='select'
                                             value={item.qty}
-                                            onChange={(e) => addToCartHandler(item, Number(e.target.value))
+                                            onChange={(e) =>
+                                                addToCartHandler(item, Number(e.target.value))
                                             }
                                         >
                                             {[...Array(item.countInStock).keys()].map((x) => (
@@ -108,7 +109,7 @@ export const CartScreen = () => {
                 </Card>
             </Col>
         </Row>
-    )
+    );
 }
 
 

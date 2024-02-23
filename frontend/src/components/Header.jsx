@@ -1,11 +1,12 @@
-import { useNavigate } from 'react-router-dom';
 import { Badge, Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import { LinkContainer } from 'react-router-bootstrap'
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/userApiSlice';
 import { logout } from '../slices/authSlice';
 import logo from '../assets/logo.png'
+import { resetCart } from '../slices/cartSlice';
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart)
@@ -20,6 +21,9 @@ const Header = () => {
     try {
       await logoutApiCall().unwrap();
       dispatch(logout());
+      // NOTE: here we need to reset cart state for when a user logs out so the next
+      // user doesn't inherit the previous users cart and shipping
+      dispatch(resetCart());
       navigate('/login');
     } catch (err) {
       console.error(err);
@@ -28,7 +32,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
+      <Navbar bg="primary" variant="dark" expand="md" collapseOnSelect>
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand>
@@ -42,8 +46,7 @@ const Header = () => {
               <LinkContainer to='/cart'>
                 <Nav.Link>
                   <FaShoppingCart /> Cart
-
-                  {cartItems.length > 0 && (
+                  {cartItems?.length > 0 && (
                     <Badge pill bg='success' style={{ marginLeft: '5px' }}>
                       {cartItems.reduce((a, c) => a + c.qty, 0)}
                     </Badge>
