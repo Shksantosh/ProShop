@@ -24,19 +24,26 @@ const cartSlice = createSlice({
 
             return updateCart(state, item);
         },
+
         removeFromCart: (state, action) => {
-            state.cartItems = state.cartItems.filter((x) => x._id !== action.payload);
+            state.shippingAddress = action.payload;
 
             return updateCart(state);
         },
-        saveShippingAddress: (action, state) => {
-            state.shippingAddress = action.payload
-            return updateCart(state);
+        saveShippingAddress: (state, action) => {
+            state.shippingAddress = action.payload;
+            localStorage.setItem('cart', JSON.stringify(state));
         },
+
         savePaymentMethod: (state, action) => {
             state.paymentMethod = action.payload;
             return updateCart(state);
         },
+        clearCartItems: (state, action) => {
+            state.cartItems = [];
+            return updateCart(state);
+        },
+
         resetCart: (state) => (state = initialState),
 
     },
@@ -47,6 +54,7 @@ export const {
     removeFromCart,
     saveShippingAddress,
     savePaymentMethod,
+    clearCartItems,
     resetCart,
 } = cartSlice.actions;
 
