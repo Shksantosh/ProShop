@@ -26,6 +26,7 @@ import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderListScreen from './screens/admin/OrderListScreen';
 import ProductListScreen from './screens/admin/ProductListScreen';
 import ProductEditScreen from './screens/admin/ProductEditScreen';
+import UserListScreen from './screens/admin/UserListScreen';
 import OrderScreen from './screens/OrderScreen';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import ProfileScreen from './screens/ProfileScreen';
@@ -52,6 +53,7 @@ const router = createBrowserRouter(
       <Route path='' element={<AdminRoute />}>
         <Route path='/admin/orderlist' element={<OrderListScreen />} />
         <Route path='/admin/productlist' element={<ProductListScreen />} />
+        <Route path='/admin/userlist' element={<UserListScreen />} />
         <Route path='/admin/product/:id/edit' element={<ProductEditScreen />} />
       </Route>
 
